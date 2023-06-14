@@ -11,7 +11,7 @@ export default function App() {
         <small className="github-link">
           Created by Sue Brechko. See you on{" "}
           <a
-            href="https://github.com/shoproizoshlo/the-weather-project"
+            href="https://github.com/shoproizoshlo/the-weather-app-react"
             target="_blank"
             rel="noreferrer"
           >

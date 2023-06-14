@@ -5,21 +5,21 @@ import "./Weather.css";
 export default function Weather() {
   const [weather, setWeather] = useState({ ready: false });
   function handleResponse(response) {
-    console.log(response.data);
+    console.log(response);
     setWeather({
       ready: true,
-      city: response.data.city,
+      city: response.data.name,
       date: "monday 21:32",
       iconUrl:
         "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
-      temperature: Math.round(response.data.temperature.current),
-      description: response.data.condition.description,
+      temperature: Math.round(response.data.main.temp),
+      description: response.data.weather[0].description,
       wind: Math.round(response.data.wind.speed),
-      humidity: response.data.temperature.humidity,
+      humidity: response.data.main.humidity,
     });
   }
   let city = "Vienna";
-  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=8o1cbc3a4633c4682d91b0f2bft25894&units=metric`;
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1fd8093fa5ff12d796d7de756cc9d6b9&units=metric`;
   axios.get(apiURL).then(handleResponse);
 
   return (
