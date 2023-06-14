@@ -7,7 +7,7 @@ export default function App() {
       <div className="card">
         <Weather />
       </div>
-      <footer>
+      <footer className="d-flex justify-content-center m-1">
         <small className="github-link">
           Created by Sue Brechko. See you on{" "}
           <a

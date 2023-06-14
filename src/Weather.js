@@ -21,70 +21,49 @@ export default function Weather() {
   axios.get(apiURL).then(handleResponse);
 
   return (
-    <div className="card-body">
+    <div className="card-body p-0">
       <form action="search">
-        <div className="form-search">
+        <div className="form-search d-flex align-items-center justify-content-between m-1">
           <input
             type="text"
             placeholder="City"
-            className="m-0 city-input"
+            className="ps-3 city-input"
             required
           />
           <input type="submit" value="Search" className="search-button" />
-          <input
-            type="button"
-            value="Local"
-            className="search-button"
-            id="local-button"
-          />
+          <input type="button" value="Local" className="search-button" />
         </div>
       </form>
-      <div className="row headline">
-        <div className="col-6">
-          <span className="city" id="city">
-            Vienna
-          </span>
+      <div className="d-flex justify-content-between align-items-center m-2 text-capitalize">
+        <div>
+          <span className="city ps-2">vienna</span>
         </div>
-        <div className="col-6 time">
-          Updated: <span id="time">Monday 21:32</span>
+        <div className="time">
+          updated: <span>monday 21:32</span>
         </div>
       </div>
-      <div className="weather-data">
-        <div className="container weather">
-          <div className="row weather-row">
-            <img
-              src={weather.iconUrl}
-              alt={weather.description}
-              className="weather-img"
-            />
-            <div className="col-6 location-weather">
-              <span id="temp-num" classNameName="location">
-                {weather.temperature}
-              </span>{" "}
-              <span className="temp-units">
-                <a href="/" id="celsius-link" className="temp active">
-                  C°
-                </a>{" "}
-                |{" "}
-                <a href="/" id="fahrenheit-link" className="temp active">
-                  F°
-                </a>
-              </span>
-            </div>
-            <div className="col-6 data">
-              <ul className="data-list">
-                <li className="data-row" id="description">
-                  {weather.description}
-                </li>
-                <li className="data-row">
-                  Wind: <span>{weather.wind}</span> km/h
-                </li>
-                <li className="data-row">
-                  Humidity: <span>{weather.humidity}</span>%
-                </li>
-              </ul>
-            </div>
-          </div>
+      <div className="d-flex justify-content-between align-items-center mr-2 pe-2">
+        <div className="d-flex align-items-center m-0">
+          <img
+            src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+            alt={weather.description}
+            className="weather-img"
+          />
+          <p className="d-inline m-0 location-weather">
+            <span className="temp">{weather.temperature}</span>{" "}
+            <span className="item">C°</span>
+          </p>
+        </div>
+        <div className="data mr-0 p-0">
+          <ul className="data-list m-0 p-0">
+            <li className="text-capitalize">{weather.description}</li>
+            <li>
+              Wind: <span>{weather.wind}</span> km/h
+            </li>
+            <li>
+              Humidity: <span>{weather.humidity}</span>%
+            </li>
+          </ul>
         </div>
       </div>
     </div>
