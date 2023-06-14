@@ -22,13 +22,12 @@ export default function Weather() {
 
   return (
     <div className="card-body">
-      <form action="search" id="search-form">
+      <form action="search">
         <div className="form-search">
           <input
             type="text"
-            id="input-city"
             placeholder="City"
-            className="city-input"
+            className="m-0 city-input"
             required
           />
           <input type="submit" value="Search" className="search-button" />
