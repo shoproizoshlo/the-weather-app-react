@@ -8,6 +8,8 @@ export default function Weather() {
     console.log(response.data);
     setWeather({
       ready: true,
+      city: response.data.city,
+      date: "monday 21:32",
       iconUrl:
         "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
       temperature: Math.round(response.data.temperature.current),
@@ -36,10 +38,10 @@ export default function Weather() {
       </form>
       <div className="d-flex justify-content-between align-items-center m-2 text-capitalize">
         <div>
-          <span className="city ps-2">vienna</span>
+          <span className="city ps-2">{weather.city}</span>
         </div>
         <div className="time">
-          updated: <span>monday 21:32</span>
+          updated: <span>{weather.date}</span>
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center mr-2 pe-2">
