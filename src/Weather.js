@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Weather.css";
 
 export default function Weather() {
+  const [weather, setWeather] = useState({ ready: false });
+  function handleResponse(response) {
+    console.log(response.data);
+    setWeather({
+      ready: true,
+      iconUrl:
+        "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
+      temperature: Math.round(response.data.temperature.current),
+      description: response.data.condition.description,
+      wind: Math.round(response.data.wind.speed),
+      humidity: response.data.temperature.humidity,
+    });
+  }
+  let city = "Vienna";
+  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=8o1cbc3a4633c4682d91b0f2bft25894&units=metric`;
+  axios.get(apiURL).then(handleResponse);
+
   return (
     <div className="card-body">
       <form action="search" id="search-form">
@@ -36,15 +53,14 @@ export default function Weather() {
       <div className="weather-data">
         <div className="container weather">
           <div className="row weather-row">
+            <img
+              src={weather.iconUrl}
+              alt={weather.description}
+              className="weather-img"
+            />
             <div className="col-6 location-weather">
-              <img
-                src="https://openweathermap.org/img/wn/10d@2x.png"
-                alt="Partly cloudy"
-                className="weather-img"
-                id="weather-img"
-              />
               <span id="temp-num" classNameName="location">
-                41
+                {weather.temperature}
               </span>{" "}
               <span className="temp-units">
                 <a href="/" id="celsius-link" className="temp active">
@@ -59,13 +75,13 @@ export default function Weather() {
             <div className="col-6 data">
               <ul className="data-list">
                 <li className="data-row" id="description">
-                  Temno
+                  {weather.description}
                 </li>
                 <li className="data-row">
-                  Wind: <span id="speed">100</span> km/h
+                  Wind: <span>{weather.wind}</span> km/h
                 </li>
                 <li className="data-row">
-                  Humidity: <span id="humidity">100</span>%
+                  Humidity: <span>{weather.humidity}</span>%
                 </li>
               </ul>
             </div>
