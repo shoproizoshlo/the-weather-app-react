@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import "./Weather.css";
 
 export default function Weather() {
@@ -44,12 +45,12 @@ export default function Weather() {
               />
               <span id="temp-num" classNameName="location">
                 41
-              </span>
+              </span>{" "}
               <span className="temp-units">
                 <a href="/" id="celsius-link" className="temp active">
                   C°
-                </a>
-                |
+                </a>{" "}
+                |{" "}
                 <a href="/" id="fahrenheit-link" className="temp active">
                   F°
                 </a>

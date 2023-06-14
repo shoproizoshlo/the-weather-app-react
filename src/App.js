@@ -3,12 +3,21 @@ import Weather from "./Weather";
 
 export default function App() {
   return (
-    <div className="App">
-      <div class="card">
+    <div classNameName="App">
+      <div className="card">
         <Weather />
       </div>
       <footer>
-        This App crated by Sue Brechko and is open-soursed on Github
+        <small className="github-link">
+          Created by Sue Brechko. See you on{" "}
+          <a
+            href="https://github.com/shoproizoshlo/the-weather-project"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </small>
       </footer>
     </div>
   );

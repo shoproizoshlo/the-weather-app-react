@@ -1,0 +1,77 @@
+body {
+  margin: 5% auto;
+  padding: 10px;
+  width: 600px;
+  font-family: "Lora", serif;
+  color: #48484a;
+}
+.card-body {
+  padding: 5px;
+}
+.form-search {
+  margin: 10px 6px 10px 6px;
+  font-size: 16px;
+}
+.city-input {
+  margin: 5px;
+  padding-left: 25px;
+  width: 54%;
+  height: 50px;
+  border: 2px outset #ec6e4c;
+  border-radius: 30px;
+  box-shadow: -1px 5px 20px rgba(231, 139, 115, 0.1);
+}
+.search-button {
+  margin: 5px;
+  width: 20%;
+  height: 51px;
+  color: #48484a;
+  background-color: #fdf8f6;
+  border: 2px outset #ec6e4c;
+  border-radius: 20px;
+  box-shadow: -1px 5px 20px rgba(231, 139, 115, 0.1);
+  transition: all 150ms ease-in-out;
+}
+.search-button:hover {
+  background-color: #fdf1ee;
+}
+.headline,
+.weather {
+  margin: 0;
+}
+.headline-list,
+.city,
+.time {
+  display: inline;
+  list-style: none;
+  text-transform: capitalize;
+}
+.city {
+  padding-left: 2%;
+  font-weight: 400;
+  font-size: 32px;
+}
+.time {
+  padding: 3%;
+  text-align: right;
+  font-weight: 100;
+  font-size: 15px;
+}
+.location-weather {
+  padding: 0;
+}
+
+.temp {
+  font-size: 16px;
+  font-weight: 300;
+}
+.data {
+  font-size: 16px;
+  font-weight: 300;
+}
+.data-list {
+  padding: 2%;
+  list-style: none;
+  text-align: right;
+  text-transform: capitalize;
+}
