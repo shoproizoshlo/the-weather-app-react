@@ -1,40 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import FormatDate from "./FormatDate";
 import "./Weather.css";
 
 export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
-  function handleResponse(response) {
-    console.log(response.data);
+  function handleResponse() {
+    let city = "Vienna";
+    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=97f8e93f00107773f88eafd933ce86b7&units=metric`;
+    axios.get(apiURL).then(handleApi);
+  }
+  useEffect(() => {
+    handleResponse();
+  }, []);
+
+  function handleApi(response) {
+    console.log(response.data, "response");
     setWeather({
       ready: true,
       city: response.data.name,
       date: new Date(response.data.dt * 1000),
-      iconUrl:
-        "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
+      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       temperature: Math.round(response.data.main.temp),
       description: response.data.weather[0].description,
       wind: Math.round(response.data.wind.speed),
       humidity: response.data.main.humidity,
     });
   }
-  let city = "Vienna";
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1fd8093fa5ff12d796d7de756cc9d6b9&units=metric`;
-  axios.get(apiURL).then(handleResponse);
 
   return (
     <div className="card-body p-0">
-      <form action="search">
+      <form action="search" id="search" onSubmit={handleApi}>
         <div className="form-search d-flex align-items-center justify-content-between m-1">
           <input
             type="text"
             placeholder="City"
             className="ps-3 city-input"
+            id="cityInput"
             required
           />
-          <input type="submit" value="Search" className="search-button" />
-          <input type="button" value="Local" className="search-button" />
+          <input
+            type="submit"
+            value="Search"
+            className="search-button"
+            id="searchButton"
+          />
+          <input
+            type="button"
+            value="Local"
+            className="search-button"
+            id="searchButton"
+          />
         </div>
       </form>
       <div className="d-flex justify-content-between align-items-center m-2 text-capitalize">
@@ -42,16 +57,13 @@ export default function Weather(props) {
           <span className="city ps-2">{weather.city}</span>
         </div>
         <div className="time">
-          updated:{" "}
-          <span>
-            <FormatDate date={weather.date} />
-          </span>
+          updated: <span></span>
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center mr-2 pe-2">
         <div className="d-flex align-items-center m-0">
           <img
-            src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+            src={weather.iconUrl}
             alt={weather.description}
             className="weather-img"
           />

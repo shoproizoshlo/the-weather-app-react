@@ -3,7 +3,7 @@ import Weather from "./Weather";
 
 export default function App() {
   return (
-    <div classNameName="App">
+    <div className="App">
       <div className="card">
         <Weather />
       </div>
