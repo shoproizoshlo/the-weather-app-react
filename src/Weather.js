@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormatDate from "./FormatDate";
 import "./Weather.css";
 
-export default function Weather() {
+export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
   function handleResponse(response) {
-    console.log(response);
+    console.log(response.data);
     setWeather({
       ready: true,
       city: response.data.name,
-      date: "monday 21:32",
+      date: new Date(response.data.dt * 1000),
       iconUrl:
         "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png",
       temperature: Math.round(response.data.main.temp),
@@ -41,7 +42,10 @@ export default function Weather() {
           <span className="city ps-2">{weather.city}</span>
         </div>
         <div className="time">
-          updated: <span>{weather.date}</span>
+          updated:{" "}
+          <span>
+            <FormatDate date={weather.date} />
+          </span>
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center mr-2 pe-2">
