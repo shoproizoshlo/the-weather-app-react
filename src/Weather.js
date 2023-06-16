@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import FormatDate from "./FormatDate";
 import "./Weather.css";
 
 export default function Weather(props) {
@@ -55,7 +56,10 @@ export default function Weather(props) {
           <span className="city ps-2">{weather.city}</span>
         </div>
         <div className="time">
-          updated: <span></span>
+          updated:{" "}
+          <span>
+            <FormatDate date={weather.date} />
+          </span>
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center mr-2 pe-2">
