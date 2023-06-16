@@ -5,6 +5,7 @@ import "./Weather.css";
 
 export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
+  const [city, setCity] = useState("");
 
   useEffect(() => {
     let city = "Vienna";
@@ -26,6 +27,10 @@ export default function Weather(props) {
     });
   }
 
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
   return (
     <div className="card-body p-0">
       <form action="search" id="search" onSubmit={handleApi}>
@@ -35,6 +40,7 @@ export default function Weather(props) {
             placeholder="City"
             className="ps-3 city-input"
             id="cityInput"
+            onChange={handleCityChange}
             required
           />
           <input
