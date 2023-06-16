@@ -14,10 +14,10 @@ export default function FormatDate(props) {
   let hours = props.date.getHours();
   let minutes = props.date.getMinutes();
   if (hours < 10) {
-    return `0${hour}`;
+    return `0${hours}`;
   }
   if (minutes < 10) {
-    return `0${minute}`;
+    return `0${minutes}`;
   }
   return `${day} ${hours}:${minutes}`;
 }
