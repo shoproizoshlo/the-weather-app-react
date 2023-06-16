@@ -4,13 +4,11 @@ import "./Weather.css";
 
 export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
-  function handleResponse() {
+
+  useEffect(() => {
     let city = "Vienna";
     let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=97f8e93f00107773f88eafd933ce86b7&units=metric`;
     axios.get(apiURL).then(handleApi);
-  }
-  useEffect(() => {
-    handleResponse();
   }, []);
 
   function handleApi(response) {
