@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import FormatDate from "./FormatDate";
+import WeatherInfo from "./WeatherInfo";
 import "./Weather.css";
 
 export default function Weather(props) {
+  const [city, setCity] = useState("Vienna");
   const [weather, setWeather] = useState({ ready: false });
-  const [city, setCity] = useState("");
 
-  useEffect(() => {
-    let city = "Vienna";
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=97f8e93f00107773f88eafd933ce86b7&units=metric`;
-    axios.get(apiURL).then(handleApi);
-  }, []);
+  function search() {
+    const apiKey = "46fac47dd8b8fa26d1b6852218ad3dfe";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleApi);
+  }
 
   function handleApi(response) {
     console.log(response.data, "response");
@@ -26,72 +26,47 @@ export default function Weather(props) {
       humidity: response.data.main.humidity,
     });
   }
-
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
   function handleCityChange(event) {
     setCity(event.target.value);
   }
 
-  return (
-    <div className="card-body p-0">
-      <form action="search" id="search" onSubmit={handleApi}>
-        <div className="form-search d-flex align-items-center justify-content-between m-1">
-          <input
-            type="text"
-            placeholder="City"
-            className="ps-3 city-input"
-            id="cityInput"
-            onChange={handleCityChange}
-            required
-          />
-          <input
-            type="submit"
-            value="Search"
-            className="search-button"
-            id="searchButton"
-          />
-          <input
-            type="button"
-            value="Local"
-            className="search-button"
-            id="searchButton"
-          />
-        </div>
-      </form>
-      <div className="d-flex justify-content-between align-items-center m-2 text-capitalize">
-        <div>
-          <span className="city ps-2">{weather.city}</span>
-        </div>
-        <div className="time">
-          updated:{" "}
-          <span>
-            <FormatDate date={weather.date} />
-          </span>
-        </div>
+  if (weather.ready) {
+    console.log(weather.ready);
+    return (
+      <div className="card-body p-0">
+        <form action="search" id="search" onSubmit={handleSubmit}>
+          <div className="form-search d-flex align-items-center justify-content-between m-1">
+            <input
+              onChange={handleCityChange}
+              type="text"
+              placeholder="City"
+              className="ps-3 city-input"
+              id="cityInput"
+              required
+            />
+            <input
+              type="submit"
+              value="Search"
+              className="search-button"
+              id="searchButton"
+            />
+            <input
+              type="button"
+              value="Local"
+              className="search-button"
+              id="searchButton"
+            />
+          </div>
+        </form>
+        <WeatherInfo data={weather} />
       </div>
-      <div className="d-flex justify-content-between align-items-center mr-2 pe-2">
-        <div className="d-flex align-items-center m-0">
-          <img
-            src={weather.iconUrl}
-            alt={weather.description}
-            className="weather-img"
-          />
-          <p className="d-inline m-0 location-weather">
-            <span className="temp">{weather.temperature}</span>{" "}
-            <span className="item">C°</span>
-          </p>
-        </div>
-        <div className="data mr-0 p-0">
-          <ul className="data-list m-0 p-0">
-            <li className="text-capitalize">{weather.description}</li>
-            <li>
-              Wind: <span>{weather.wind}</span> km/h
-            </li>
-            <li>
-              Humidity: <span>{weather.humidity}</span>%
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    search();
+    return "Loading...";
+  }
 }
