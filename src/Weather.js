@@ -14,7 +14,6 @@ export default function Weather(props) {
   }
 
   function handleApi(response) {
-    console.log(response.data, "response");
     setWeather({
       ready: true,
       city: response.data.name,
@@ -26,6 +25,7 @@ export default function Weather(props) {
       humidity: response.data.main.humidity,
     });
   }
+  
   function handleSubmit(event) {
     event.preventDefault();
     search();
@@ -34,8 +34,17 @@ export default function Weather(props) {
     setCity(event.target.value);
   }
 
+  function handlePosition(position) {
+    let apiKey = "46fac47dd8b8fa26d1b6852218ad3dfe";
+    let positionApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+    axios.get(positionApiUrl).then(handleApi);
+  }
+  function navigatorLocal(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(handlePosition);
+  }
+
   if (weather.ready) {
-    console.log(weather.ready);
     return (
       <div className="card-body p-0">
         <form action="search" id="search" onSubmit={handleSubmit}>
@@ -55,6 +64,7 @@ export default function Weather(props) {
               id="searchButton"
             />
             <input
+              onClick={navigatorLocal}
               type="button"
               value="Local"
               className="search-button"
