@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="App">
       <div className="card">
-        <Weather />
+        <Weather defaultCity="Vienna" />
       </div>
       <footer className="d-flex justify-content-center m-1">
         <small className="github-link">

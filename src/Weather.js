@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 import "./Weather.css";
 
 export default function Weather(props) {
-  const [city, setCity] = useState("Vienna");
+  const [city, setCity] = useState(props.defaultCity);
   const [weather, setWeather] = useState({ ready: false });
 
   function search() {
