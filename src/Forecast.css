@@ -3,10 +3,8 @@
   margin-bottom: 20px;
 }
 .forecact-card {
-  margin: 1%;
-  padding: 2%;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 .forecact-card:hover {
   background-color: #fdf8f6;

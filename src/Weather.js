@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 import Forecast from "./Forecast";
@@ -25,7 +25,6 @@ export default function Weather(props) {
   }
 
   function handleApi(response) {
-    console.log(response.data);
     setWeather({
       ready: true,
       city: response.data.name,
