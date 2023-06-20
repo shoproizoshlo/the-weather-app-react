@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
+import Forecast from "./Forecast";
 import "./Weather.css";
 
 export default function Weather(props) {
   const [city, setCity] = useState(props.defaultCity);
   const [weather, setWeather] = useState({ ready: false });
 
+  function handlePosition(position) {
+    let apiKey = "caa883a4a60d93878755b08a933f74ea";
+    let positionApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+    axios.get(positionApiUrl).then(handleApi);
+  }
+  function navigatorLocal(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(handlePosition);
+  }
+
   function search() {
-    const apiKey = "46fac47dd8b8fa26d1b6852218ad3dfe";
+    const apiKey = "caa883a4a60d93878755b08a933f74ea";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleApi);
   }
 
   function handleApi(response) {
+    console.log(response.data);
     setWeather({
       ready: true,
       city: response.data.name,
@@ -23,25 +35,16 @@ export default function Weather(props) {
       description: response.data.weather[0].description,
       wind: Math.round(response.data.wind.speed),
       humidity: response.data.main.humidity,
+      coordinates: response.data.coord,
     });
   }
-  
+
   function handleSubmit(event) {
     event.preventDefault();
     search();
   }
   function handleCityChange(event) {
     setCity(event.target.value);
-  }
-
-  function handlePosition(position) {
-    let apiKey = "46fac47dd8b8fa26d1b6852218ad3dfe";
-    let positionApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
-    axios.get(positionApiUrl).then(handleApi);
-  }
-  function navigatorLocal(event) {
-    event.preventDefault();
-    navigator.geolocation.getCurrentPosition(handlePosition);
   }
 
   if (weather.ready) {
@@ -73,6 +76,7 @@ export default function Weather(props) {
           </div>
         </form>
         <WeatherInfo data={weather} />
+        <Forecast coordinates={weather.coordinates} />
       </div>
     );
   } else {
