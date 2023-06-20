@@ -13,16 +13,22 @@ export default function Forecast(props) {
     setLoaded(true);
   }
 
+  useEffect(() => {
+    setLoaded(false);
+  }, [props.coordinates]);
+
   if (loaded) {
     return (
       <div className="row forecast-row">
         {forecast.map(function (dailyForecast, index) {
           if (index < 5) {
             return (
-              <div className="col forecact-card">
+              <div className="col forecact-card" key={index}>
                 <ForecastDay data={dailyForecast} />
               </div>
             );
+          } else {
+            return null;
           }
         })}
       </div>
