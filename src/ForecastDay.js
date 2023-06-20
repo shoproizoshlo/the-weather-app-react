@@ -35,7 +35,7 @@ export default function ForecastDay(props) {
       <img
         src={icon()}
         alt={props.data.weather[0].description}
-        className="weather-img"
+        className="forecast-img"
       />
       <div className="forecast-temperature">
         <span className="forecast-temperature-max">{temperatureMax()}</span>° |{" "}
