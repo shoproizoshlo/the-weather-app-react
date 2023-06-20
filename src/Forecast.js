@@ -9,19 +9,22 @@ export default function Forecast(props) {
 
   function handleResponse(response) {
     console.log(response.data.daily);
-    setForecast({
-      maxTemp: Math.round(response.data.daily[0].temp.max),
-      minTemp: Math.round(response.data.daily[0].temp.min),
-      iconUrl: `https://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png`,
-      date: response.data.daily[0].dt,
-    });
+    setForecast(response.data.daily);
     setLoaded(true);
   }
 
   if (loaded) {
     return (
       <div className="row forecast-row">
-        <ForecastDay data={forecast} />
+        {forecast.map(function (dailyForecast, index) {
+          if (index < 5) {
+            return (
+              <div className="col forecact-card">
+                <ForecastDay data={dailyForecast} />
+              </div>
+            );
+          }
+        })}
       </div>
     );
   } else {
